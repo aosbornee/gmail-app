@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { Avatar, Icon, IconButton } from '@material-ui/core';
+import { Avatar, IconButton } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AppsIcon from '@material-ui/icons/Apps';

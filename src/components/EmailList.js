@@ -11,12 +11,31 @@ import {
   Redo,
   Settings,
 } from '@material-ui/icons';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './EmailList.css';
 import EmailRow from './EmailRow';
 import Section from './Section';
+import { db } from '../firebase';
 
 const EmailList = () => {
+  const [emails, setEmails] = useState([]);
+  console.log(emails);
+
+  useEffect(() => {
+    db.collection('emails')
+      .orderBy('timestamp', 'desc')
+      // snapshot is a real time listener that will give us a snapshot
+      // of the database whenever a change is made
+      .onSnapshot((snapshot) =>
+        // map through the emails and get the id, and the data (what is in the email)
+        setEmails(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
   return (
     <div className='emailList'>
       <div className='emailList__settings'>
@@ -53,12 +72,19 @@ const EmailList = () => {
         <Section Icon={LocalOffer} title='Promotions' color='green' />
       </div>
       <div className='emailList__list'>
-        <EmailRow
-          title='Twitch'
-          subject='Hey People'
-          description='This is a message concerning recent activity on twitch, please read at your earliest convenience'
-          time='11am'
-        />
+        {emails.map(({ id, data: { to, subject, message, timestamp } }) => (
+          <EmailRow
+            id={id}
+            // key allows us to pop in another email to the list
+            // without the need for the whole list to be re rendered
+            key={id}
+            title={to}
+            subject={subject}
+            description={message}
+            // this changes the Date to form a nice UTC string with the timestamp we receive from the database
+            time={new Date(timestamp?.seconds * 1000).toUTCString()}
+          />
+        ))}
       </div>
     </div>
   );

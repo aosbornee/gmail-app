@@ -19,20 +19,22 @@ import {
   Phone,
 } from '@material-ui/icons';
 
-const Sidebar = ({ setShowPopup }) => {
-  const dispatch = useDispatch();
-  // dispatch(open_send_message());
-  const store = useSelector((state) => state);
-  console.log(store);
-  const sendMessageIsOpen = store.mail.sendMessageIsOpen;
-  console.log(sendMessageIsOpen);
+const Sidebar = ({ showPopup, setShowPopup }) => {
+  // const dispatch = useDispatch();
+
+  // const store = useSelector((state) => state);
+  // console.log(store);
+  // const messageStatus = store.mail.sendMessageOpen;
+  // console.log(messageStatus);
+  // messageStatus && setShowPopup(true);
 
   return (
     <div className='sidebar'>
       <Button
         startIcon={<AddIcon fontSize='large' />}
         className='sidebar__compose'
-        onClick={() => dispatch(open_send_message())}
+        // onClick={() => dispatch(open_send_message())}
+        onClick={() => setShowPopup(!showPopup)}
       >
         Compose
       </Button>

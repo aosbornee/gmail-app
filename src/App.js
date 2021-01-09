@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import EmailList from './components/EmailList';
 import Header from './components/Header';
 import Mail from './components/Mail';
@@ -10,7 +10,7 @@ import store from './store';
 import SendMail from './components/SendMail';
 
 const App = () => {
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <Provider store={store}>
@@ -18,7 +18,7 @@ const App = () => {
         <div className='app'>
           <Header />
           <div className='app__body'>
-            <Sidebar setShowPopup={setShowPopup} />
+            <Sidebar showPopup={showPopup} setShowPopup={setShowPopup} />
             <Switch>
               <Route path='/mail'>
                 <Mail />
@@ -28,7 +28,7 @@ const App = () => {
               </Route>
             </Switch>
           </div>
-          {showPopup && <SendMail />}
+          {showPopup && <SendMail setShowPopup={setShowPopup} />}
         </div>
       </Router>
     </Provider>

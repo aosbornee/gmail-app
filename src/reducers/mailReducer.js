@@ -3,11 +3,13 @@
 export const mailReducer = (state = { sendMessageOpen: false }, action) => {
   switch (action.type) {
     case 'OPEN_SEND_MESSAGE':
-      state.sendMessageOpen = true;
-      break;
+      return {
+        ...state,
+        sendMessageOpen: true,
+      };
 
     case 'CLOSE_SEND_MESSAGE':
-      state.sendMessageOpen = false;
+      return (state.sendMessageOpen = false);
 
     default:
       return state;
