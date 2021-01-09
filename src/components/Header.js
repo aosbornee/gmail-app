@@ -6,8 +6,18 @@ import { Avatar, IconButton } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AppsIcon from '@material-ui/icons/Apps';
+import { useDispatch, useSelector } from 'react-redux';
+import { auth } from '../firebase';
+import { logout } from '../actions/userActions';
 
 const Header = () => {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const signOut = () => {
+    auth.signOut().then(() => {
+      dispatch(logout());
+    });
+  };
   return (
     <div className='header'>
       <div className='header__left'>
@@ -32,7 +42,13 @@ const Header = () => {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        <Avatar />
+        {/* this will take our photo url provided from firebase and show it on the
+        avatar */}
+        <Avatar
+          className='header__avatar'
+          src={user?.photoUrl}
+          onClick={signOut}
+        />
       </div>
     </div>
   );
