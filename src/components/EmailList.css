@@ -3,6 +3,16 @@
   overflow: scroll;
 }
 
+.emailList::-webkit-scrollbar {
+  display: none;
+}
+
+/* these are added for firefox and edge browsers */
+.emailList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .emailList__settings {
   position: sticky;
   top: 0;
@@ -20,4 +30,8 @@
   border-bottom: 1px solid whitesmoke;
   background-color: white;
   z-index: 999;
+}
+
+.emailList__list {
+  padding-bottom: 20px;
 }

@@ -33,7 +33,7 @@
   border: none;
   width: 100%;
   padding: 10px;
-  outline-width: 0;
+  outline: none;
   font-size: medium;
   background-color: transparent;
 }
